@@ -1,40 +1,51 @@
 <?php
+//start session
 session_start();
-function login();
-{
-// server info
-$server = '192.168.121.187';
-$username = 'first_year';
-$pass = 'first_year';
-$db = 'first_year_db';
 
-// connect to the database
-$mysqli = new mysqli($server, $username, $password, $db);
+//variable declaration
+$username=$_POST["username"];
+$passwd=$_POST["passwd"];
 
-//show errors (remove this line if on a live site)
-mysqli_report(MYSQLI_REPORT_ERROR);}
-login();
+$_SESSION["username"] = $username;
+$_SESSION["passwd"] = $passwd;
 
-if(isset($_POST['submit']))
-{
-  $username = trim($_POST['username']);
-  $password = trim($_POST['passwd']);
-  $query = "SELECT username, password FROM rishabh_profile WHERE username='$username' 
-    AND password='$password'";
 
-  $result = mysqli_query($mysqli,$query)or die(mysqli_error());
-  $num_row = mysqli_num_rows($result);
-  $row=mysqli_fetch_array($result);
-  if( $num_row ==1 )
-         {
-            $_SESSION['username']=$row['username'];
-             header("Location: admin.php");
-              echo 'hi there';
-               exit;
-                 }
-    else
-           {
-              echo 'oops  can not do it';
-                }
-     }
+//connection variables
+$db_host="192.168.121.187";
+$db_user="first_year";
+$db_pass="first_year";
+$db="first_year_db";
+
+//mysqli connection
+$conn = new mysqli($db_host, $db_user, $db_pass,$db);
+
+//check connection
+if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+} 
+
+//enter query
+$sql= "select * from rishabh_profile where username='$username' and password='$passwd';";
+
+//using query
+$result = $conn->query($sql);
+if ($result->num_rows == 1) {
+  $row = $result->fetch_assoc();
+  $_SESSION["name"] = $row["Name"];
+  $_SESSION["email"] = $row["email"];
+  $_SESSION["phno"] = $row["ph_no"];
+  $_SESSION["age"] = $row["age"];
+        header('location: php-assign/profile.php');
+              
+} else {
+        echo "NOT OK";
+}
+
+
+
+//closing connection
+$conn->close();
+
+
 ?>
+
