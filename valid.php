@@ -1,10 +1,15 @@
 <?php
 //start session
 session_start();
-
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 //variable declaration
 $username=$_POST["username"];
 $passwd=$_POST["passwd"];
+if($_POST["remember_me"]=='1' || $_POST["remember_me"]=='on')
+   {$hour = time() + 3600 * 24 * 30;
+    setcookie('username', $username, $hour);
+    setcookie('password', $passwd, $hour);}
 
 $_SESSION["username"] = $username;
 $_SESSION["passwd"] = $passwd;
@@ -35,7 +40,7 @@ if ($result->num_rows == 1) {
   $_SESSION["email"] = $row["email"];
   $_SESSION["phno"] = $row["ph_no"];
   $_SESSION["age"] = $row["age"];
-        header('location: php-assign/profile.php');
+     //   header('location: display.php');
               
 } else {
         echo "NOT OK";
