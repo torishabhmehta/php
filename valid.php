@@ -35,12 +35,7 @@ $sql= "select * from rishabh_profile where username='$username' and password='$p
 //using query
 $result = $conn->query($sql);
 if ($result->num_rows == 1) {
-  $row = $result->fetch_assoc();
-  $_SESSION["name"] = $row["Name"];
-  $_SESSION["email"] = $row["email"];
-  $_SESSION["phno"] = $row["ph_no"];
-  $_SESSION["age"] = $row["age"];
-     //   header('location: display.php');
+  header('location: display.php');
               
 } else {
         echo "NOT OK";

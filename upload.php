@@ -23,17 +23,26 @@ $ei=$_POST["ei"];
 $work=$_POST["work"];
 $pn=$_FILES["pp"]["name"];
 $cn=$_FILES["cp"]["name"]; 
-$folder="images/";
-$file1=$folder . basename($_FILES["pp"]["name"]);
+$folder1="images/";
+$folder2="images1/";
+$file1=$folder1 . basename($_FILES["pp"]["name"]);
+$file2=$folder2 . basename($_FILES["cp"]["name"]);
+
 if (move_uploaded_file($_FILES["pp"]["tmp_name"], $file1)) {
           echo "The file ". basename( $_FILES["pp"]["name"]). " has been uploaded.";
               } else {
                         echo "Sorry, there was an error uploading your file.";
                             }
-move_uploaded_file($_FILES[" cp "][" tmp_name "], $folder.$_FILES[" cp "][" name "]);
+if (move_uploaded_file($_FILES["cp"]["tmp_name"], $file2)) {
+          echo "The file ". basename( $_FILES["cp"]["name"]). " has been uploaded.";
+              } else {
+                        echo "Sorry, there was an error uploading your file.";
+                            }
+
+
 //query
 $sql="INSERT INTO rishabh_bg VALUES('$user','$pn','$cn','$ei','$work');";
-echo $pn;
+
   //insertion
 if($conn->query($sql)===TRUE)
     { echo "successful";
