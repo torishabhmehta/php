@@ -3,12 +3,14 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 //variable naming
-$name=$_POST["name"];
-$age=$_POST["age"];
-$username=$_POST["username"];
-$phno=$_POST["phno"];
-$email=$_POST["email"];
-$passwd=$_POST["passwd"];
+$name=htmlspecialchars($_POST["name"]);
+$age=htmlspecialchars($_POST["age"]);
+$username=htmlspecialchars($_POST["username"]);
+$phno=htmlspecialchars($_POST["phno"]);
+$email=htmlspecialchars($_POST["email"]);
+$passwd=md5($_POST["passwd"]);
+$gender=$_POST["male"];
+$md5=md5($username)
 $x="/^[1-9]{1}[0-9]{0,2}$/";
 $y="/^(\+91|0){0,1}(\s){0,1}[1-9]{1}[0-9]{4}(\-|\s){0,1}[0-9]{5}$/";
 
@@ -20,7 +22,7 @@ $db_host="192.168.121.187";
 $db_username="first_year";
 $db_passwd="first_year";
 $db_name="first_year_db";
-$sql="INSERT INTO rishabh_profile VALUES ('$username', '$name', '$phno', '$passwd','$email','M',$age)";
+$sql="INSERT INTO rishabh_profile VALUES ('$username', '$name', '$phno', '$passwd','$email','$gender',$age,'$md5')";
 
 // connection
 $conn=new mysqli($db_host, $db_username, $db_passwd,"first_year_db" );

@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 }
 
 //enter query
-$sql1= "select pn,cn from rishabh_bg where username='$username';";
+$sql1= "select * from rishabh_bg where username='$username';";
 $sql2= "select * from rishabh_profile where username='$username';";
 
 //using query
@@ -28,6 +28,8 @@ if ($result1->num_rows == 1) {
     $row = $result1->fetch_assoc();
       $_SESSION["pp"] = $row["pn"];
         $_SESSION["cp"] = $row["cn"];
+        $_SESSION["ei"] = $row["ei"];
+        $_SESSION["work"] = $row["work"];
     $v=1; }
 
 $result2 = $conn->query($sql2);
@@ -42,6 +44,9 @@ $v=$v+1;}
 if($v==2)
 {echo "successful";
 header('location:php-assign/profile.php');}
+else{
+header('location:cprofile.html');}
+
 
 echo $_SESSION["pp"];
 ?>
